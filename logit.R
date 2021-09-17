@@ -1,4 +1,4 @@
-source('preprocessing.R')
+source("/Users/gastonbernheim/Desktop/Facultad/Master en Big Data/11. Tesis/Padronario por Departamento/preprocessing.R")
 
 str(pais)
 df_status(pais)
