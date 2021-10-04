@@ -1,5 +1,5 @@
 # Se instalan los paquetes a utilizar
-#install.packages(c("tidyverse", "readxl", "dplyr", "Amelia", "pscl", "Hmisc", "funModeling", "ggplot2", "caret", "mlr", "keras))
+# install.packages(c("tidyverse", "readxl", "dplyr", "corrplot", "Amelia", "pscl", "Hmisc", "funModeling", "ggplot2", "ggrepel", "caret", "mlr", "keras", "PCAmixdata", "party"))
 
 # Se llaman las librerias a utilizar 
 library(tidyverse)
@@ -8,7 +8,6 @@ library(dplyr)
 library(corrplot)
 library(Amelia)
 library(pscl)
-library(dplyr)
 library(Hmisc)
 library(funModeling)
 library(ggplot2)
@@ -71,7 +70,7 @@ missmap(pais, main = "Missing values vs observed")
 df_status(pais, print_results = F) %>% select(variable, q_na, p_na) %>% arrange(-q_na)
 
 # Nos quedamos con las variables que tienen menos de 10% de NAs
-pais <- pais[c(-9, -10, -14, -15)]
+pais <- pais[, -c(9, 10, 14, 15)]
 
 # Eliminamos los NAs del dataset
 pais <- na.omit(pais)
@@ -105,3 +104,20 @@ pais <- merge(pais, poblacion_2011, by = "departamento")
 pais <- merge(pais, superficie_2011, by = "departamento")
 pais <- merge(pais, ingresos, by = "departamento")
 pais <- merge(pais, perc_inf_p_depto, by = "departamento")
+
+# Se crean las variables habitantes por carniceria (hab_carn) y km2 por carniceria (km2_carn)
+hab_carn = NULL
+for (i in unique(pais$departamento)) {
+  hab_carn = rbind(hab_carn, c(i, (unique(pais$poblacion[pais$departamento == i]) / length(pais$infractor[pais$departamento == i]))))
+}
+hab_carn <- data_frame(departamento = hab_carn[, 1], habitantes_carniceria = as.double(hab_carn[, 2]))
+
+km2_carn = NULL
+for (i in unique(pais$departamento)) {
+  km2_carn = rbind(km2_carn, c(i, (unique(pais$superficie_km2[pais$departamento == i]) / length(pais$infractor[pais$departamento == i]))))
+}
+km2_carn <- data_frame(departamento = km2_carn[, 1], km2_carniceria = as.double(km2_carn[, 2]))
+
+# Se agregan las variables hab_carny km2_carn al dataset pais
+pais <- merge(pais, hab_carn, by = "departamento")
+pais <- merge(pais, km2_carn, by = "departamento")

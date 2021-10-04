@@ -1,4 +1,4 @@
-source("/Users/gastonbernheim/Desktop/Facultad/Master en Big Data/11. Tesis/Padronario por Departamento/preprocessing.R")
+source("preprocessing.R")
 
 str(pais)
 df_status(pais)
@@ -6,7 +6,8 @@ df_status(pais)
 # Modelo Logit
 logit <- glm(infractor ~ tipo_carniceria_1 + tipo_carniceria_2 +
                elabora_prod + hab_sec_elab + realiza_coccion + dias_desde_30_7 +
-               poblacion + superficie_km2 + ing_p_capita_mes_cte_2005,
+               poblacion + superficie_km2 + ing_p_capita_mes_cte_2005 + 
+               habitantes_carniceria + km2_carniceria,
              data = pais, family = binomial)
 summary(logit)
 
@@ -42,7 +43,7 @@ sum(test.data$infractor == 1)
 # Estimo modelo
 model <- glm(infractor ~ tipo_carniceria_1 + tipo_carniceria_2 +
                elabora_prod + hab_sec_elab + realiza_coccion + dias_desde_30_7 +
-               poblacion + superficie_km2 + ing_p_capita_mes_cte_2005,
+               poblacion + superficie_km2 + ing_p_capita_mes_cte_2005 + habitantes_carniceria + km2_carniceria,
              data = train.data, family = binomial)
 summary(model)
 

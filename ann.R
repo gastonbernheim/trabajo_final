@@ -1,4 +1,4 @@
-source("/Users/gastonbernheim/Desktop/Facultad/Master en Big Data/11. Tesis/Padronario por Departamento/preprocessing.R")
+source("preprocessing.R")
 
 library(keras)
 library(tensorflow)
@@ -7,7 +7,7 @@ str(pais)
 df_status(pais)
 
 # Almaceno correlacion en C
-C <- cor(pais[, c(2, 4:12, 15:17)])
+C <- cor(pais[, c(2, 4:12, 15:17, 19:20)])
 
 # Plot de la correlacion entre las variables
 corrplot(C, method = "number")
