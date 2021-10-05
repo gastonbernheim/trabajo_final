@@ -1,5 +1,5 @@
 # Se instalan los paquetes a utilizar
-# install.packages(c("tidyverse", "readxl", "dplyr", "corrplot", "Amelia", "pscl", "Hmisc", "funModeling", "ggplot2", "ggrepel", "caret", "mlr", "keras", "PCAmixdata", "party"))
+# install.packages(c("tidyverse", "readxl", "dplyr", "corrplot", "Amelia", "pscl", "Hmisc", "funModeling", "ggplot2", "ggrepel", "caret", "mlr", "keras", "PCAmixdata", "party", "rpart", "rpart.plot"))
 
 # Se llaman las librerias a utilizar 
 library(tidyverse)
@@ -85,14 +85,7 @@ for (i in unique(pais$departamento)) {
 }
 inf_p_depto <- data_frame(departamento = inf_p_depto[, 1], total_infractores = as.integer(inf_p_depto[, 2]))
 
-# Grafico que muestre infracciones por departamento 
-infractores_p_depto <- ggplot(inf_p_depto, aes(x = departamento, y = total_infractores)) + 
-  geom_bar(stat = 'identity') +
-  geom_text(aes(label = total_infractores), hjust = -0.15, size = 3, position = position_dodge(width = 1)) +
-  coord_flip()
-infractores_p_depto
-
-# Se crea la variable perc_inf_p_depto como la proporcion de infractores por departamento
+# Tabla con proporcion de infractores por departamento
 perc_inf_p_depto = NULL
 for (i in unique(pais$departamento)) {
   perc_inf_p_depto = rbind(perc_inf_p_depto, c(i, (sum(pais$infractor[pais$departamento == i]) / length(pais$infractor[pais$departamento == i]))))
@@ -105,7 +98,7 @@ pais <- merge(pais, superficie_2011, by = "departamento")
 pais <- merge(pais, ingresos, by = "departamento")
 pais <- merge(pais, perc_inf_p_depto, by = "departamento")
 
-# Se crean las variables habitantes por carniceria (hab_carn) y km2 por carniceria (km2_carn)
+# Se crean las tablas habitantes por carniceria (hab_carn) y km2 por carniceria (km2_carn)
 hab_carn = NULL
 for (i in unique(pais$departamento)) {
   hab_carn = rbind(hab_carn, c(i, (unique(pais$poblacion[pais$departamento == i]) / length(pais$infractor[pais$departamento == i]))))
@@ -118,6 +111,6 @@ for (i in unique(pais$departamento)) {
 }
 km2_carn <- data_frame(departamento = km2_carn[, 1], km2_carniceria = as.double(km2_carn[, 2]))
 
-# Se agregan las variables hab_carny km2_carn al dataset pais
+# Se agregan las variables habitantes_carniceria y km2_carniceria al dataset pais
 pais <- merge(pais, hab_carn, by = "departamento")
 pais <- merge(pais, km2_carn, by = "departamento")
