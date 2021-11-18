@@ -4,8 +4,11 @@ Repositorio Trabajo Final del Master en Big Data
 En este repositorio se incluyen los datasets utilizados para el desarrollo de los modelos y los archivos .R generados. Los archivos que se incluyen son:
 
   Bases de datos
+  
   **dataset_vfinal:**   base de datos con establecimientos infractores y características comerciales.
+  
   **opp_observatorio:** tabla que incluye las variables población, ingreso per cápita mensual y superficie en km2 por departamento.
+  
   **frigoríficos:**     tabla que incluye el número de frigoríficos por departamento.
   
   Archivos .R
