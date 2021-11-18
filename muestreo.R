@@ -386,9 +386,9 @@ res <- nloptr(  x0 = rep(1/95, 95), #rep(1/4,4),
                 eval_f = objective_function,
                 lb = rep(0,95), #rep(0,4)
                 eval_g_ineq = constr_function,
-                opts = list("algorithm"="NLOPT_LN_COBYLA", "xtol_rel"=1.0e-8),
+                opts = list("algorithm" = "NLOPT_LN_COBYLA", "xtol_rel" = 1.0e-6, "maxeval" = 10000),
                 p = prob_estimadas[, 2], #c(.4,.3,.2,.1),
-                beta = 10 )
+                beta = 0.5 )
 
 res
 
@@ -433,9 +433,8 @@ res <- nloptr(  x0 = rep(1/95, 95), #rep(1/4,4),
                 lb = rep(0, 95), #rep(0,4),
                 #                ub = c(Inf,Inf),
                 eval_g_ineq = constr_function,
-                opts = list("algorithm"="NLOPT_LN_COBYLA", "xtol_rel"=1.0e-8),
-                p = prob_estimadas[, 2]
-)
+                opts = list("algorithm" = "NLOPT_LN_COBYLA", "xtol_rel" = 1.0e-6, "maxeval" = 10000),
+                p = prob_estimadas[, 2] )
 
 res
 
@@ -452,3 +451,4 @@ min(qast) #prob. de muestrear al que muestreo menos
 
 ########## AGREGO LA PROBABILIDAD DE QUE SEAN MUESTREADOS (qi) AL DATAFRAME ##########
 prob_estimadas$p.muestreo.prop <- qast
+prob_estimadas$sump <- prob_estimadas$p.infractor/sum(prob_estimadas$p.infractor) ### ESTA ES LA SOLUCION A LA QUE LLEGA EL PROBLEMA.
