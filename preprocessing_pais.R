@@ -1,5 +1,5 @@
 # Se instalan los paquetes a utilizar
-# install.packages(c("tidyverse", "readxl", "dplyr", "corrplot", "Amelia", "pscl", "Hmisc", "funModeling", "ggplot2", "ggtext", "ggrepel", "caret", "mlr", "stringr", "RColorBrewer", "texreg", "mltools", "keras", "fastDummies, "MLmetrics", "neuralnet", "yardstick","PCAmixdata", "party", "rpart", "rpart.plot", "RSNNS" , "randomForest", "vip", "nloptr"))
+# install.packages(c("tidyverse", "readxl", "dplyr", "corrplot", "Amelia", "pscl", "Hmisc", "funModeling", "ggplot2", "ggtext", "ggrepel", "caret", "mlr", "stringr", "RColorBrewer", "texreg", "mltools", "keras", "fastDummies", "MLmetrics", "neuralnet", "yardstick","PCAmixdata", "party", "rpart", "rpart.plot", "RSNNS" , "randomForest", "vip", "nloptr"))
 
 # Se llaman las librerias a utilizar 
 library(tidyverse)
