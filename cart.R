@@ -110,6 +110,16 @@ table(predicted = class_tree_pred, actual = test.data$infractor)
 # Accuracy en test.data
 accuracy(predicted = class_tree_pred, actual = test.data$infractor)
 
+# F1 score y Balanced accuracy
+# F1 score = (2 * precision * recall) / (precision + recall)
+precision <- posPredValue(class_tree_pred, test.data$infractor, positive="Infractor")
+recall <- sensitivity(class_tree_pred, test.data$infractor, positive="Infractor")
+F1 <- (2 * precision * recall) / (precision + recall)
+
+# BA = Sensitivity (recall) + Specificity / 2
+speci <- specificity(class_tree_pred, test.data$infractor, positive="Infractor")
+BA <- (recall + speci) / 2
+
 # El cp es el parametro de complejidad
 plotcp(class_tree)
 
